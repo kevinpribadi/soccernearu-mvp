@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoccerNearU - Soccer Anytime</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        grass: '#16a34a', // Custom Primary Color
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .btn-primary {
+                @apply bg-grass text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-300 shadow-lg hover:shadow-xl;
+            }
+            .section-padding {
+                @apply py-16 md:py-24 px-4 md:px-8;
+            }
+            .card-hover {
+                @apply transition-transform duration-300 hover:-translate-y-1;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-sans text-slate-800 bg-slate-50 antialiased">
+
+    <!-- 1. Navbar -->
+    <nav
+        class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                    <svg class="w-8 h-8 text-grass" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">SoccerNearU</span>
+                </div>
+
+                <!-- Navbar Actions -->
+                <div class="flex items-center gap-4">
+                    <!-- Language Switcher -->
+                    <div
+                        class="flex items-center text-sm font-medium border border-slate-200 rounded-lg overflow-hidden">
+                        <button onclick="changeLanguage('en')"
+                            class="px-3 py-1.5 hover:bg-slate-50 transition-colors lang-btn" id="btn-en">EN</button>
+                        <div class="w-px h-4 bg-slate-200"></div>
+                        <button onclick="changeLanguage('fr')"
+                            class="px-3 py-1.5 hover:bg-slate-50 transition-colors text-slate-400 lang-btn"
+                            id="btn-fr">FR</button>
+                    </div>
+
+                    <!-- CTA -->
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsOmh_-i8uxn15Q5nrYsEK0rsy7-OUFxcT2TUOlb1jBx9esw/viewform?usp=sharing&ouid=110351257375910297878"
+                        target="_blank"
+                        class="bg-grass text-white px-5 py-2.5 rounded-full font-medium text-sm hover:bg-green-700 transition-colors shadow-md hover:shadow-lg transform active:scale-95 duration-200"
+                        data-i18n="nav_cta">
+                        Join Waitlist
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade8f55?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+                alt="Soccer Field" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/80 to-slate-900/90"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span
+                class="inline-block py-1 px-3 rounded-full bg-green-500/20 text-green-300 border border-green-500/30 text-sm font-semibold mb-6 animate-fade-in-up"
+                data-i18n="hero_badge">
+                ⚽ Soccer Revolution
+            </span>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
+                <span data-i18n="hero_title_1">Soccer Anytime.</span><br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-300"
+                    data-i18n="hero_title_2">Manage Fields Without Drama.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed"
+                data-i18n="hero_subtitle">
+                The #1 app for finding opponents and automated field management. Save time, maximize play.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsOmh_-i8uxn15Q5nrYsEK0rsy7-OUFxcT2TUOlb1jBx9esw/viewform?usp=sharing&ouid=110351257375910297878"
+                    target="_blank" class="btn-primary text-lg px-8 py-4 w-full sm:w-auto" data-i18n="hero_cta">
+                    Join Waitlist Now
+                </a>
+                <a href="#features"
+                    class="text-white hover:text-green-400 font-medium px-6 py-3 transition-colors flex items-center gap-2 group">
+                    <span data-i18n="hero_learn_more">Learn More</span>
+                    <span class="group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+            </div>
+
+            <!-- Trust badge/Small social proof -->
+            <div class="mt-12 flex justify-center items-center gap-4 text-slate-400 text-sm">
+                <div class="flex -space-x-2">
+                    <img class="w-8 h-8 rounded-full border-2 border-slate-900"
+                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&h=100"
+                        alt="User">
+                    <img class="w-8 h-8 rounded-full border-2 border-slate-900"
+                        src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=100&h=100"
+                        alt="User">
+                    <img class="w-8 h-8 rounded-full border-2 border-slate-900"
+                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100"
+                        alt="User">
+                </div>
+                <p data-i18n="hero_trust">Joining 2,000+ other players</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Problem & Solution Section -->
+    <section class="section-padding bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4" data-i18n="prob_title">Classic Problems,
+                    Modern Solutions</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto" data-i18n="prob_subtitle">We understand the frustration of
+                    players and field owners. SoccerNearU is the bridge.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Player Pain -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 card-hover">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 text-red-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="pain_player_title">Player: Hard
+                                to find opponents? Short on people?</h3>
+                            <p class="text-slate-600" data-i18n="pain_player_desc">Often cancel games because friends
+                                suddenly get busy or the opposing team doesn't show up.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-green-100 shadow-sm relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-green-400/20 to-transparent">
+                        </div>
+                        <h4 class="font-bold text-grass mb-2 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span data-i18n="our_solution">Our Solution</span>
+                        </h4>
+                        <p class="text-slate-800 font-medium" data-i18n="sol_player_title">Instant Matchmaking.</p>
+                        <p class="text-sm text-slate-500 mt-1" data-i18n="sol_player_desc">Find opponents and
+                            substitutes in minutes.</p>
+                    </div>
+                </div>
+
+                <!-- Facility Pain -->
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 card-hover">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 text-red-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2" data-i18n="pain_owner_title">Facilities:
+                                Empty slots during quiet hours?</h3>
+                            <p class="text-slate-600" data-i18n="pain_owner_desc">Empty fields during work hours and
+                                manual booking management prone to overlaps.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-green-100 shadow-sm relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-green-400/20 to-transparent">
+                        </div>
+                        <h4 class="font-bold text-grass mb-2 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span data-i18n="our_solution">Our Solution</span>
+                        </h4>
+                        <p class="text-slate-800 font-medium" data-i18n="sol_owner_title">SaaS Booking Management.</p>
+                        <p class="text-sm text-slate-500 mt-1" data-i18n="sol_owner_desc">Manage schedules automatically
+                            and offer off-peak promos easily.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Features Section -->
+    <section id="features" class="section-padding bg-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- For Players -->
+                <div class="order-2 lg:order-1">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl mb-8 group">
+                        <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="App for players"
+                            class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                            <h3 class="text-white text-2xl font-bold" data-i18n="feat_player_title">For Players</h3>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-grass flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900" data-i18n="feat_3tap_title">3-Tap Booking</h4>
+                                <p class="text-slate-600 text-sm" data-i18n="feat_3tap_desc">Search, choose time, and
+                                    book the field in just seconds.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-grass flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900" data-i18n="feat_pay_title">Secure Payment</h4>
+                                <p class="text-slate-600 text-sm" data-i18n="feat_pay_desc">Secure payments integrated
+                                    with various e-wallets and banks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- For Facilities -->
+                <div class="order-1 lg:order-2">
+                    <div class="mb-8">
+                        <span class="text-grass font-semibold tracking-wide uppercase text-sm"
+                            data-i18n="feat_badge">Full Features</span>
+                        <h2 class="text-3xl font-bold text-slate-900 mt-2" data-i18n="feat_eco_title">Integrated
+                            Ecosystem</h2>
+                        <p class="text-slate-600 mt-4" data-i18n="feat_eco_desc">One platform for all amateur soccer
+                            needs, from players to field owners.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 relative">
+                        <div class="absolute -top-4 -right-4 bg-grass text-white text-xs font-bold px-3 py-1 rounded-full"
+                            data-i18n="feat_owner_fav">Owner Favorite</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2"
+                            data-i18n="feat_owner_title">
+                            For Facilities
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-slate-50 rounded-lg border-l-4 border-grass">
+                                <h4 class="font-bold text-slate-900 text-sm" data-i18n="feat_admin_title">Admin
+                                    Dashboard</h4>
+                                <p class="text-slate-600 text-xs mt-1" data-i18n="feat_admin_desc">Monitor field
+                                    occupancy in real-time from your phone.</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-lg border-l-4 border-slate-300">
+                                <h4 class="font-bold text-slate-900 text-sm" data-i18n="feat_finance_title">Financial
+                                    Reports</h4>
+                                <p class="text-slate-600 text-xs mt-1" data-i18n="feat_finance_desc">Automated daily and
+                                    monthly revenue recaps.</p>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-lg border-l-4 border-slate-300">
+                                <h4 class="font-bold text-slate-900 text-sm" data-i18n="feat_noshow_title">Anti No-Show
+                                </h4>
+                                <p class="text-slate-600 text-xs mt-1" data-i18n="feat_noshow_desc">Down payment or full
+                                    upfront payment to reduce losses.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Social Proof Section -->
+    <section class="section-padding bg-white relative overflow-hidden">
+        <!-- Decoration BG -->
+        <div
+            class="absolute top-0 left-0 w-64 h-64 bg-green-50 rounded-full filter blur-3xl -translate-x-1/2 -translate-y-1/2 opacity-60">
+        </div>
+        <div
+            class="absolute bottom-0 right-0 w-96 h-96 bg-green-50 rounded-full filter blur-3xl translate-x-1/2 translate-y-1/2 opacity-60">
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12" data-i18n="testi_title">What They Say</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Testimonial 1: Player -->
+                <div class="bg-slate-50 p-8 rounded-2xl relative shadow-sm hover:shadow-md transition-shadow">
+                    <svg class="absolute top-6 right-6 w-8 h-8 text-green-200" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M14.017 21L14.017 18C14.017 16.0547 15.5947 14.4771 17.5401 14.4771L19.8228 14.4771L19.8228 9.77196C19.8228 7.82664 18.2452 6.24902 16.3 6.24902L13.7937 6.24902L13.7937 3L16.3 3C20.0401 3 23.0729 6.03274 23.0729 9.77196L23.0729 21L14.017 21ZM5.23984 21L5.23984 18C5.23984 16.0547 6.81755 14.4771 8.76288 14.4771L11.0456 14.4771L11.0456 9.77196C11.0456 7.82664 9.46792 6.24902 7.52261 6.24902L5.01632 6.24902L5.01632 3L7.52261 3C11.2627 3 14.2955 6.03274 14.2955 9.77196L14.2955 21L5.23984 21Z">
+                        </path>
+                    </svg>
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80"
+                            alt="Budi" class="w-14 h-14 rounded-full object-cover border-2 border-grass">
+                        <div>
+                            <h5 class="font-bold text-slate-900">Jason</h5>
+                            <p class="text-sm text-slate-500" data-i18n="testi_role_1">Futsal Team Captain "Eagle FC"
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 italic">
+                        "<span data-i18n="testi_quote_1">Crazy good, used to be so hard finding sparring partners. With
+                            SoccerNearU, I just post inside the app, and 30 minutes later I get an opponent. Booking
+                            feature is smooth too.</span>"
+                    </p>
+                </div>
+
+                <!-- Testimonial 2: Field Owner -->
+                <div class="bg-slate-50 p-8 rounded-2xl relative shadow-sm hover:shadow-md transition-shadow">
+                    <svg class="absolute top-6 right-6 w-8 h-8 text-green-200" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M14.017 21L14.017 18C14.017 16.0547 15.5947 14.4771 17.5401 14.4771L19.8228 14.4771L19.8228 9.77196C19.8228 7.82664 18.2452 6.24902 16.3 6.24902L13.7937 6.24902L13.7937 3L16.3 3C20.0401 3 23.0729 6.03274 23.0729 9.77196L23.0729 21L14.017 21ZM5.23984 21L5.23984 18C5.23984 16.0547 6.81755 14.4771 8.76288 14.4771L11.0456 14.4771L11.0456 9.77196C11.0456 7.82664 9.46792 6.24902 7.52261 6.24902L5.01632 6.24902L5.01632 3L7.52261 3C11.2627 3 14.2955 6.03274 14.2955 9.77196L14.2955 21L5.23984 21Z">
+                        </path>
+                    </svg>
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80"
+                            alt="Siti" class="w-14 h-14 rounded-full object-cover border-2 border-grass">
+                        <div>
+                            <h5 class="font-bold text-slate-900">Emma
+
+                            </h5>
+                            <p class="text-sm text-slate-500" data-i18n="testi_role_2">Owner "KickOff Arena"</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 italic">
+                        "<span data-i18n="testi_quote_2">Financial reports are so tidy now. Used to get a headache
+                            managing schedules manually via WhatsApp, now everything is automated. No-shows dropped
+                            drastically thanks to the down payment system.</span>"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Footer -->
+    <footer class="bg-slate-900 text-white py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-6 h-6 text-grass" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="font-bold text-xl">SoccerNearU</span>
+                    </div>
+                    <p class="text-slate-400 text-sm" data-i18n="footer_desc">Connecting players and fields in one
+                        seamless platform.</p>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h3 class="font-bold text-white mb-4" data-i18n="footer_company">Company</h3>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-grass transition-colors" data-i18n="footer_about">About</a>
+                        </li>
+                        <li><a href="#" class="hover:text-grass transition-colors"
+                                data-i18n="footer_contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h3 class="font-bold text-white mb-4" data-i18n="footer_legal">Legal</h3>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-grass transition-colors" data-i18n="footer_privacy">Privacy
+                                Policy</a></li>
+                        <li><a href="#" class="hover:text-grass transition-colors" data-i18n="footer_terms">Terms of
+                                Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Socials -->
+                <div>
+                    <h3 class="font-bold text-white mb-4" data-i18n="footer_follow">Follow Us</h3>
+                    <div class="flex gap-4">
+                        <!-- Instagram -->
+                        <a href="#"
+                            class="text-slate-400 hover:text-white hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500 p-2 rounded-lg transition-all duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.669 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        <!-- Twitter/X -->
+                        <a href="#"
+                            class="text-slate-400 hover:text-white hover:bg-slate-800 p-2 rounded-lg transition-all duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2026 SoccerNearU. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CTA Sticky Mobile (Optional, adds nice touch) -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 p-4 z-40">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsOmh_-i8uxn15Q5nrYsEK0rsy7-OUFxcT2TUOlb1jBx9esw/viewform?usp=sharing&ouid=110351257375910297878"
+            target="_blank" class="block w-full btn-primary text-center" data-i18n="cta_sticky">Join Waitlist</a>
+    </div>
+
+    <!-- Internationalization Script -->
+    <script>
+        const translations = {
+            en: {
+                nav_cta: "Join Waitlist",
+                hero_badge: "⚽ Soccer Revolution",
+                hero_title_1: "Soccer Anytime.",
+                hero_title_2: "Manage Fields Without Drama.",
+                hero_subtitle: "The #1 app for finding opponents and automated field management. Save time, maximize play.",
+                hero_cta: "Join Waitlist Now",
+                hero_learn_more: "Learn More",
+                hero_trust: "Joining 2,000+ other players",
+                prob_title: "Classic Problems, Modern Solutions",
+                prob_subtitle: "We understand the frustration of players and field owners. SoccerNearU is the bridge.",
+                pain_player_title: "Player: Hard to find opponents? Short on people?",
+                pain_player_desc: "Often cancel games because friends suddenly get busy or the opposing team doesn't show up.",
+                our_solution: "Our Solution",
+                sol_player_title: "Instant Matchmaking.",
+                sol_player_desc: "Find opponents and substitutes in minutes.",
+                pain_owner_title: "Facilities: Empty slots during quiet hours?",
+                pain_owner_desc: "Empty fields during work hours and manual booking management prone to overlaps.",
+                sol_owner_title: "SaaS Booking Management.",
+                sol_owner_desc: "Manage schedules automatically and offer off-peak promos easily.",
+                feat_player_title: "For Players",
+                feat_3tap_title: "3-Tap Booking",
+                feat_3tap_desc: "Search, choose time, and book the field in just seconds.",
+                feat_pay_title: "Secure Payment",
+                feat_pay_desc: "Secure payments integrated with various e-wallets and banks.",
+                feat_badge: "Full Features",
+                feat_eco_title: "Integrated Ecosystem",
+                feat_eco_desc: "One platform for all amateur soccer needs, from players to field owners.",
+                feat_owner_fav: "Owner Favorite",
+                feat_owner_title: "For Facilities",
+                feat_admin_title: "Admin Dashboard",
+                feat_admin_desc: "Monitor field occupancy in real-time from your phone.",
+                feat_finance_title: "Financial Reports",
+                feat_finance_desc: "Automated daily and monthly revenue recaps.",
+                feat_noshow_title: "Anti No-Show",
+                feat_noshow_desc: "Down payment or full upfront payment to reduce losses.",
+                testi_title: "What They Say",
+                testi_role_1: "Futsal Team Captain \"Eagle FC\"",
+                testi_quote_1: "Crazy good, used to be so hard finding sparring partners. With SoccerNearU, I just post inside the app, and 30 minutes later I get an opponent. Booking feature is smooth too.",
+                testi_role_2: "Owner \"KickOff Arena\"",
+                testi_quote_2: "Financial reports are so tidy now. Used to get a headache managing schedules manually via WhatsApp, now everything is automated. No-shows dropped drastically thanks to the down payment system.",
+                footer_desc: "Connecting players and fields in one seamless platform.",
+                footer_company: "Company",
+                footer_about: "About",
+                footer_contact: "Contact",
+                footer_legal: "Legal",
+                footer_privacy: "Privacy Policy",
+                footer_terms: "Terms of Service",
+                footer_follow: "Follow Us",
+                cta_sticky: "Join Waitlist"
+            },
+            fr: {
+                nav_cta: "Rejoindre la liste",
+                hero_badge: "⚽ Révolution du Foot",
+                hero_title_1: "Du foot à tout moment.",
+                hero_title_2: "Gérez les terrains sans drame.",
+                hero_subtitle: "L'app n°1 pour trouver des adversaires et gérer les terrains automatiquement. Gagnez du temps, jouez plus.",
+                hero_cta: "Rejoindre la liste maintenant",
+                hero_learn_more: "En savoir plus",
+                hero_trust: "Rejoignez plus de 2 000 joueurs",
+                prob_title: "Problèmes Classiques, Solutions Modernes",
+                prob_subtitle: "Nous comprenons la frustration des joueurs et des propriétaires. SoccerNearU est le pont.",
+                pain_player_title: "Joueur : Difficile de trouver des adversaires ?",
+                pain_player_desc: "Matchs souvent annulés car les amis sont occupés ou l'équipe adverse ne vient pas.",
+                our_solution: "Notre Solution",
+                sol_player_title: "Matchmaking Instantané.",
+                sol_player_desc: "Trouvez des adversaires et des remplaçants en quelques minutes.",
+                pain_owner_title: "Complexe : Créneaux vides en heures creuses ?",
+                pain_owner_desc: "Terrains vides pendant les heures de travail et gestion manuelle sujette aux erreurs.",
+                sol_owner_title: "Gestion de Réservation SaaS.",
+                sol_owner_desc: "Gérez les plannings automatiquement et offrez des promos facilement.",
+                feat_player_title: "Pour les Joueurs",
+                feat_3tap_title: "Réservation en 3 clics",
+                feat_3tap_desc: "Cherchez, choisissez l'heure et réservez le terrain en quelques secondes.",
+                feat_pay_title: "Paiement Sécurisé",
+                feat_pay_desc: "Paiements sécurisés intégrés avec divers portefeuilles électroniques et banques.",
+                feat_badge: "Fonctionnalités Complètes",
+                feat_eco_title: "Écosystème Intégré",
+                feat_eco_desc: "Une plateforme pour tous les besoins du foot amateur, des joueurs aux propriétaires.",
+                feat_owner_fav: "Favori des Proprios",
+                feat_owner_title: "Pour les Complexes",
+                feat_admin_title: "Tableau de Bord Admin",
+                feat_admin_desc: "Surveillez l'occupation des terrains en temps réel depuis votre téléphone.",
+                feat_finance_title: "Rapports Financiers",
+                feat_finance_desc: "Récapitulatifs automatisés des revenus quotidiens et mensuels.",
+                feat_noshow_title: "Anti No-Show",
+                feat_noshow_desc: "Système d'acompte ou paiement complet à l'avance pour réduire les pertes.",
+                testi_title: "Ce Qu'ils Disent",
+                testi_role_1: "Capitaine \"Eagle FC\"",
+                testi_quote_1: "Incroyable, c'était dur de trouver des adversaires avant. Avec SoccerNearU, je poste dans l'app et 30 min plus tard j'ai un adversaire. La réservation est fluide aussi.",
+                testi_role_2: "Propriétaire \"KickOff Arena\"",
+                testi_quote_2: "Les rapports financiers sont si propres. J'avais mal à la tête avec WhatsApp, maintenant tout est automatisé. Les no-shows ont chuté grâce au système d'acompte.",
+                footer_desc: "Connecter joueurs et terrains sur une plateforme fluide.",
+                footer_company: "Entreprise",
+                footer_about: "À propos",
+                footer_contact: "Contact",
+                footer_legal: "Légal",
+                footer_privacy: "Politique de Confidentialité",
+                footer_terms: "Conditions d'Utilisation",
+                footer_follow: "Suivez-nous",
+                cta_sticky: "Rejoindre la liste"
+            }
+        };
+
+        function changeLanguage(lang) {
+            // Update Text
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update Active State of Buttons
+            document.getElementById('btn-en').className = lang === 'en'
+                ? 'px-3 py-1.5 bg-slate-100 text-slate-900 font-bold transition-colors pointer-events-none'
+                : 'px-3 py-1.5 hover:bg-slate-50 transition-colors text-slate-400 cursor-pointer';
+
+            document.getElementById('btn-fr').className = lang === 'fr'
+                ? 'px-3 py-1.5 bg-slate-100 text-slate-900 font-bold transition-colors pointer-events-none'
+                : 'px-3 py-1.5 hover:bg-slate-50 transition-colors text-slate-400 cursor-pointer';
+
+            // Optional: Persist selection
+            localStorage.setItem('preferredLanguage', lang);
+            document.documentElement.lang = lang;
+        }
+
+        // Initialize
+        const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+        changeLanguage(savedLang);
+    </script>
+
+</body>
+
+</html>
